@@ -3,9 +3,12 @@ package com.obrunomendes.rh.funcionario.data.models.funcionario;
 import com.obrunomendes.rh.funcionario.data.models.endereco.EnderecoModel;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +20,9 @@ public class FuncionarioModel {
     private Integer id;
     private String nome;
     private Integer idade;
-    private TipoSexo sexo;
+    private String sexo;
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
     private EnderecoModel enderecoModel;
 
     public FuncionarioModel(String nome, Integer idade) {
@@ -25,7 +30,7 @@ public class FuncionarioModel {
         this.idade = idade;
     }
 
-    public FuncionarioModel(String nome, Integer idade, TipoSexo sexo, EnderecoModel enderecoModel) {
+    public FuncionarioModel(String nome, Integer idade, String sexo, EnderecoModel enderecoModel) {
         this(nome, idade);
         this.sexo = sexo;
         this.enderecoModel = enderecoModel;
@@ -51,11 +56,11 @@ public class FuncionarioModel {
         this.idade = idade;
     }
 
-    public TipoSexo getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(TipoSexo sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
