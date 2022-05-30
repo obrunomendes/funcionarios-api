@@ -1,36 +1,43 @@
 package com.obrunomendes.rh.funcionario.data.repositories;
 
 import com.obrunomendes.rh.funcionario.data.datasources.FuncionarioDatasources;
+import com.obrunomendes.rh.funcionario.data.models.funcionario.FuncionarioModel;
 
-public class FuncionarioRepositoryImpl implements FuncionarioDatasources {
+import java.util.List;
+import java.util.Optional;
 
+public class FuncionarioRepositoryImpl {
+    final FuncionarioDatasources funcionarioDatasources;
 
-    @Override
-    public void cadastrarFuncionario() {
-
+    FuncionarioRepositoryImpl(FuncionarioDatasources funcionarioDatasources) {
+        this.funcionarioDatasources = funcionarioDatasources;
     }
 
-    @Override
-    public void buscarFuncionarioPeloId() {
 
+    public FuncionarioModel cadastrarFuncionario() {
+        return null;
     }
 
-    @Override
-    public void buscarTodosOsFuncionarios() {
 
+    public Optional<FuncionarioModel> buscarFuncionarioPeloId() {
+        return Optional.empty();
     }
 
-    @Override
-    public void buscarUsuariosPorCEP() {
 
+    public List<FuncionarioModel> buscarTodosOsFuncionarios() {
+        return null;
     }
 
-    @Override
+
+    public List<FuncionarioModel> buscarUsuariosPorCEP() {
+        return null;
+    }
+
+
     public void atualizarFuncionario() {
 
     }
 
-    @Override
     public void removerFuncionario() {
 
     }

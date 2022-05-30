@@ -20,7 +20,7 @@ public class FuncionarioModel {
     private Integer id;
     private String nome;
     private Integer idade;
-    private String sexo;
+    private String tipoSexo;
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     private EnderecoModel enderecoModel;
@@ -30,9 +30,9 @@ public class FuncionarioModel {
         this.idade = idade;
     }
 
-    public FuncionarioModel(String nome, Integer idade, String sexo, EnderecoModel enderecoModel) {
+    public FuncionarioModel(String nome, Integer idade, String tipoSexo, EnderecoModel enderecoModel) {
         this(nome, idade);
-        this.sexo = sexo;
+        this.tipoSexo = tipoSexo;
         this.enderecoModel = enderecoModel;
     }
 
@@ -56,12 +56,12 @@ public class FuncionarioModel {
         this.idade = idade;
     }
 
-    public String getSexo() {
-        return sexo;
+    public String getTipoSexo() {
+        return tipoSexo;
     }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
+    public void setTipoSexo(String sexo) {
+        this.tipoSexo = sexo;
     }
 
     public EnderecoModel getEndereco() {

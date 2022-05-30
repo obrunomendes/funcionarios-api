@@ -1,17 +1,22 @@
 package com.obrunomendes.rh.funcionario.data.datasources;
 
+import com.obrunomendes.rh.funcionario.data.models.funcionario.FuncionarioModel;
+
+import java.util.List;
+import java.util.Optional;
+
 public interface FuncionarioDatasources {
 
-    void cadastrarFuncionario();
+    FuncionarioModel cadastrarFuncionario(FuncionarioModel funcionarioModel);
 
-    void buscarFuncionarioPeloId();
+    Optional<FuncionarioModel> buscarFuncionarioPeloId(Integer id);
 
-    void buscarTodosOsFuncionarios();
+    List<FuncionarioModel> buscarTodosOsFuncionarios();
 
-    void buscarUsuariosPorCEP();
+    List<FuncionarioModel> buscarFuncionariosPorCEP(String cep);
 
-    void atualizarFuncionario();
+    void atualizarFuncionario(FuncionarioModel funcionarioModel);
 
-    void removerFuncionario();
+    void removerFuncionario(Integer id);
 
 }
