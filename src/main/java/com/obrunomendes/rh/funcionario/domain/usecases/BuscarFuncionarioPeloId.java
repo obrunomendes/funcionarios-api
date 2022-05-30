@@ -1,5 +1,6 @@
 package com.obrunomendes.rh.funcionario.domain.usecases;
 
+import com.obrunomendes.rh.funcionario.domain.entities.funcionario.Funcionario;
 import com.obrunomendes.rh.funcionario.domain.repositories.FuncionarioRepository;
 
 public class BuscarFuncionarioPeloId {
@@ -10,8 +11,8 @@ public class BuscarFuncionarioPeloId {
         this.funcionarioRepository = funcionarioRepository;
     }
 
-    public void execute(Integer id) {
-        funcionarioRepository.buscarFuncionarioPeloId(id);
+    public Funcionario execute(Integer id) {
+        return funcionarioRepository.buscarFuncionarioPeloId(id).orElseThrow(() -> new RuntimeException("Deu ruim"));
     }
 
 }

@@ -7,8 +7,9 @@ public enum TipoSexo {
     TipoSexo(String descricao) {
         this.descricao = descricao;
     }
+    TipoSexo(){}
 
-    public TipoSexo toEnum(String str) {
+    public static TipoSexo toEnum(String str) {
         if (str == null) {
             throw new IllegalArgumentException("");
         }
@@ -18,6 +19,10 @@ public enum TipoSexo {
             }
         }
         throw new IllegalArgumentException("");
+    }
+
+    public String getDescricao() {
+        return descricao;
     }
 
 }

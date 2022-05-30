@@ -10,6 +10,6 @@ import java.util.List;
 public interface JpaFuncionarioRepository extends JpaRepository<FuncionarioModel, Integer> {
     // adicionado apenas para teste
     //TODO: remover
-    List<FuncionarioModel> findAllByCep(String cep);
+    List<FuncionarioModel> findAllByEnderecoModel_Cep(String cep);
 
 }

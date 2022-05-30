@@ -6,19 +6,8 @@ public class Funcionario {
 
     private String nome;
     private Integer idade;
-    private TipoSexo sexo;
     private Endereco endereco;
-
-    public Funcionario(String nome, Integer idade) {
-        this.nome = nome;
-        this.idade = idade;
-    }
-
-    public Funcionario(String nome, Integer idade, TipoSexo sexo, Endereco endereco) {
-        this(nome, idade);
-        this.sexo = sexo;
-        this.endereco = endereco;
-    }
+    private TipoSexo tipoSexo;
 
     public String getNome() {
         return nome;
@@ -36,12 +25,12 @@ public class Funcionario {
         this.idade = idade;
     }
 
-    public TipoSexo getSexo() {
-        return sexo;
+    public TipoSexo getTipoSexo() {
+        return tipoSexo;
     }
 
-    public void setSexo(TipoSexo sexo) {
-        this.sexo = sexo;
+    public void setTipoSexo(TipoSexo sexo) {
+        this.tipoSexo = sexo;
     }
 
     public Endereco getEndereco() {

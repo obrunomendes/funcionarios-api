@@ -8,40 +8,40 @@ import java.util.List;
 import java.util.Optional;
 
 public class FuncionarioDatasourcesImpl implements FuncionarioDatasources {
-    private final JpaFuncionarioRepository funcionarioRepository;
+    private final JpaFuncionarioRepository jpaFuncionarioRepository;
 
-    public FuncionarioDatasourcesImpl(JpaFuncionarioRepository funcionarioRepository) {
-        this.funcionarioRepository = funcionarioRepository;
+    public FuncionarioDatasourcesImpl(JpaFuncionarioRepository jpaFuncionarioRepository) {
+        this.jpaFuncionarioRepository = jpaFuncionarioRepository;
     }
 
     @Override
     public FuncionarioModel cadastrarFuncionario(FuncionarioModel funcionarioModel) {
-        return funcionarioRepository.save(funcionarioModel);
+        return jpaFuncionarioRepository.save(funcionarioModel);
     }
 
     @Override
     public Optional<FuncionarioModel> buscarFuncionarioPeloId(Integer id) {
-        return funcionarioRepository.findById(id);
+        return jpaFuncionarioRepository.findById(id);
     }
 
     @Override
     public List<FuncionarioModel> buscarTodosOsFuncionarios() {
-        return funcionarioRepository.findAll();
+        return jpaFuncionarioRepository.findAll();
     }
 
     @Override
     public List<FuncionarioModel> buscarFuncionariosPorCEP(String cep) {
-        return funcionarioRepository.findAllByCep(cep);
+        return jpaFuncionarioRepository.findAllByEnderecoModel_Cep(cep);
     }
 
     @Override
     public void atualizarFuncionario(FuncionarioModel funcionarioModel) {
-        funcionarioRepository.save(funcionarioModel);
+        jpaFuncionarioRepository.save(funcionarioModel);
     }
 
     @Override
     public void removerFuncionario(Integer id) {
-        funcionarioRepository.deleteById(id);
+        jpaFuncionarioRepository.deleteById(id);
     }
 
 }

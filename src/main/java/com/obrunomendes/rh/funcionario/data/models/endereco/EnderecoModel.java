@@ -18,7 +18,17 @@ public class EnderecoModel {
     private String cidade;
     private String bairro;
 
-    
+    public EnderecoModel() {
+    }
+
+    public EnderecoModel(Integer id, String cep, String estado, String cidade, String bairro) {
+        this.id = id;
+        this.cep = cep;
+        this.estado = estado;
+        this.cidade = cidade;
+        this.bairro = bairro;
+    }
+
     public Integer getId() {
         return id;
     }

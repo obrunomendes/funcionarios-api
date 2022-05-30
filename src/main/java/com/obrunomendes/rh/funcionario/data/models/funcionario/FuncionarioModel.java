@@ -1,6 +1,10 @@
 package com.obrunomendes.rh.funcionario.data.models.funcionario;
 
 import com.obrunomendes.rh.funcionario.data.models.endereco.EnderecoModel;
+import com.obrunomendes.rh.funcionario.domain.entities.endereco.Cep;
+import com.obrunomendes.rh.funcionario.domain.entities.endereco.Endereco;
+import com.obrunomendes.rh.funcionario.domain.entities.endereco.Estado;
+import com.obrunomendes.rh.funcionario.domain.entities.funcionario.Funcionario;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,6 +29,9 @@ public class FuncionarioModel {
     @MapsId
     private EnderecoModel enderecoModel;
 
+    public FuncionarioModel() {
+    }
+
     public FuncionarioModel(String nome, Integer idade) {
         this.nome = nome;
         this.idade = idade;
@@ -34,6 +41,49 @@ public class FuncionarioModel {
         this(nome, idade);
         this.tipoSexo = tipoSexo;
         this.enderecoModel = enderecoModel;
+    }
+
+    public Funcionario conveteParaFuncionario(FuncionarioModel fm) {
+        Endereco em = null;
+        if (fm.enderecoModel != null) {
+            em = enderecoBuilder(fm.getEndereco());
+        }
+        Funcionario func = new Funcionario();
+        func.setNome(fm.getNome());
+        func.setIdade(fm.getIdade());
+        func.setEndereco(em);
+        return func;
+    }
+
+    public FuncionarioModel converteParaFuncionarioModel(Funcionario func) {
+        EnderecoModel em = null;
+        if (func.getEndereco() != null) {
+            em = enderecoBuilder(func.getEndereco());
+        }
+
+        FuncionarioModel fm = new FuncionarioModel();
+        fm.setNome(func.getNome());
+        fm.setIdade(func.getIdade());
+        fm.setEndereco(em);
+        return fm;
+    }
+
+    private Endereco enderecoBuilder(EnderecoModel em) {
+        Endereco endereco = new Endereco();
+        endereco.setBairro(em.getBairro());
+        endereco.setCep(new Cep(em.getCep()));
+        endereco.setEstado(Estado.toEnum(em.getEstado()));
+        endereco.setCidade(em.getCidade());
+        return endereco;
+    }
+
+    private EnderecoModel enderecoBuilder(Endereco endereco) {
+        EnderecoModel em = new EnderecoModel();
+        em.setBairro(endereco.getBairro());
+        em.setCep(endereco.getCep().getNumero());
+        em.setEstado(em.getEstado());
+        em.setCidade(endereco.getCidade());
+        return em;
     }
 
     public Integer getId() {

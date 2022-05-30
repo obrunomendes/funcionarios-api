@@ -4,10 +4,11 @@ public class Cidade {
 
     private String nome;
 
-    public Cidade(String nome) {
-        if (nome == null || nome.isBlank()) {
-            throw new IllegalArgumentException("");
-        }
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
         this.nome = nome;
     }
 }

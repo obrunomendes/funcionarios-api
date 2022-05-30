@@ -1,6 +1,7 @@
 package com.obrunomendes.rh.funcionario.domain.entities.endereco;
 
 public enum Estado {
+
     AC("Acre"),
     AL("Alagoas"),
     AP("Amapá"),
@@ -29,9 +30,27 @@ public enum Estado {
     SE("Sergipe"),
     TO("Tocantins");
 
-    String descricao;
+    private String descricao;
 
-    Estado(String descricao) {
+    private Estado(String descricao) {
         this.descricao = descricao;
+    }
+    Estado(){}
+
+
+    public static Estado toEnum(String str) {
+        if (str == null) {
+            throw new IllegalArgumentException("");
+        }
+        for (Estado x : Estado.values()) {
+            if (x.descricao.equals(str)) {
+                return x;
+            }
+        }
+        throw new IllegalArgumentException("");
+    }
+
+    public String getDescricao() {
+        return descricao;
     }
 }

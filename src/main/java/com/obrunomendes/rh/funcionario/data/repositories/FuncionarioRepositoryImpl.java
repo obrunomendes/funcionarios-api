@@ -2,11 +2,13 @@ package com.obrunomendes.rh.funcionario.data.repositories;
 
 import com.obrunomendes.rh.funcionario.data.datasources.FuncionarioDatasources;
 import com.obrunomendes.rh.funcionario.data.models.funcionario.FuncionarioModel;
+import com.obrunomendes.rh.funcionario.domain.entities.funcionario.Funcionario;
+import com.obrunomendes.rh.funcionario.domain.repositories.FuncionarioRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public class FuncionarioRepositoryImpl {
+public class FuncionarioRepositoryImpl implements FuncionarioRepository {
     final FuncionarioDatasources funcionarioDatasources;
 
     FuncionarioRepositoryImpl(FuncionarioDatasources funcionarioDatasources) {
@@ -14,31 +16,38 @@ public class FuncionarioRepositoryImpl {
     }
 
 
-    public FuncionarioModel cadastrarFuncionario() {
+    @Override
+    public Funcionario cadastrarFuncionario(Funcionario funcionario) {
         return null;
     }
 
-
-    public Optional<FuncionarioModel> buscarFuncionarioPeloId() {
-        return Optional.empty();
+    @Override
+    public Optional<Funcionario> buscarFuncionarioPeloId(Integer id) {
+        //TODO: alterar essa implementacao - feita para teste
+        FuncionarioModel fm = funcionarioDatasources.buscarFuncionarioPeloId(id).orElseThrow();
+        Funcionario func = new Funcionario();
+        func.setNome(fm.getNome());
+        func.setIdade(fm.getIdade());
+        return Optional.of(func);
     }
 
-
-    public List<FuncionarioModel> buscarTodosOsFuncionarios() {
+    @Override
+    public List<Funcionario> buscarTodosOsFuncionarios() {
         return null;
     }
 
-
-    public List<FuncionarioModel> buscarUsuariosPorCEP() {
+    @Override
+    public List<Funcionario> buscarFuncionariosPorCEP(String cep) {
         return null;
     }
 
-
-    public void atualizarFuncionario() {
+    @Override
+    public void atualizarFuncionario(Funcionario funcionario) {
 
     }
 
-    public void removerFuncionario() {
+    @Override
+    public void removerFuncionario(Integer id) {
 
     }
 }

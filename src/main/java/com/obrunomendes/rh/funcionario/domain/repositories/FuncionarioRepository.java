@@ -7,16 +7,16 @@ import java.util.Optional;
 
 public interface FuncionarioRepository {
 
-    Funcionario cadastrarFuncionario(Funcionario funcionario);
+    public Funcionario cadastrarFuncionario(Funcionario funcionario);
 
-    Optional<Funcionario> buscarFuncionarioPeloId(Integer id);
+    public Optional<Funcionario> buscarFuncionarioPeloId(Integer id);
 
-    List<Funcionario> buscarTodosOsFuncionarios();
+    public List<Funcionario> buscarTodosOsFuncionarios();
 
-    List<Funcionario> buscarFuncionariosPorCEP(String cep);
+    public List<Funcionario> buscarFuncionariosPorCEP(String cep);
 
-    void atualizarFuncionario(Funcionario funcionario);
+    public void atualizarFuncionario(Funcionario funcionario);
 
-    void removerFuncionario(Integer id);
+    public void removerFuncionario(Integer id);
 
 }
