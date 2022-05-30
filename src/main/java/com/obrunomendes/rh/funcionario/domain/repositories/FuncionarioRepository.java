@@ -1,17 +1,22 @@
 package com.obrunomendes.rh.funcionario.domain.repositories;
 
+import com.obrunomendes.rh.funcionario.domain.entities.funcionario.Funcionario;
+
+import java.util.List;
+import java.util.Optional;
+
 public interface FuncionarioRepository {
 
-    void cadastrarFuncionario();
+    Funcionario cadastrarFuncionario(Funcionario funcionario);
 
-    void buscarFuncionarioPeloId();
+    Optional<Funcionario> buscarFuncionarioPeloId(Integer id);
 
-    void buscarTodosOsFuncionarios();
+    List<Funcionario> buscarTodosOsFuncionarios();
 
-    void buscarUsuariosPorCEP();
+    List<Funcionario> buscarFuncionariosPorCEP(String cep);
 
-    void atualizarFuncionario();
+    void atualizarFuncionario(Funcionario funcionario);
 
-    void removerFuncionario();
+    void removerFuncionario(Integer id);
 
 }
