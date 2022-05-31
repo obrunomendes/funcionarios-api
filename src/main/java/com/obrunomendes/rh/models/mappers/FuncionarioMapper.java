@@ -2,6 +2,7 @@ package com.obrunomendes.rh.models.mappers;
 
 import com.obrunomendes.rh.domain.Funcionario;
 import com.obrunomendes.rh.models.request.FuncionarioRequest;
+import com.obrunomendes.rh.models.request.FuncionarioUpdateRequest;
 import com.obrunomendes.rh.models.response.FuncionarioResponse;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.InjectionStrategy;
@@ -28,5 +29,8 @@ public interface FuncionarioMapper {
 
 
     List<FuncionarioResponse> toListFuncionarioResponse(List<Funcionario> funcionario);
+
+    Funcionario toFuncionario(FuncionarioUpdateRequest funcionarioRequest);
+
 }
 

@@ -14,12 +14,15 @@ public class FuncionarioRequest {
 
     @NotBlank
     private String nome;
+
     @NotNull
     @JsonProperty(value = "data_nascimento")
     private LocalDate dataNascimento;
+
     @NotNull
     private TipoSexo sexo;
 
     @Valid
     private EnderecoRequest endereco;
+
 }
