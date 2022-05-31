@@ -11,7 +11,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, uses = EndereceMapper.class)
+@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, uses = EnderecoMapper.class)
 public interface FuncionarioMapper {
     FuncionarioMapper INSTANCE = Mappers.getMapper(FuncionarioMapper.class);
 

@@ -66,5 +66,12 @@ public class FuncionarioController {
         funcionarioService.atualizacaoParcial(funcionario);
     }
 
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removerFuncionarioPorId(@PathVariable Integer id) {
+
+        funcionarioService.removeFuncionarioPorId(id);
+    }
+
 
 }
