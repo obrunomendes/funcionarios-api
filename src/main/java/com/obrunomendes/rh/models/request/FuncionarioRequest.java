@@ -2,6 +2,7 @@ package com.obrunomendes.rh.models.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.obrunomendes.rh.domain.TipoSexo;
+import com.obrunomendes.rh.exceptions.messages.ErrorMessage;
 import lombok.Data;
 
 import javax.validation.Valid;
@@ -15,13 +16,14 @@ public class FuncionarioRequest {
     @NotBlank
     private String nome;
 
-    @NotNull
+    @NotNull(message = ErrorMessage.REQUIRED_FIELD)
     @JsonProperty(value = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @NotNull
+    @NotNull(message = ErrorMessage.REQUIRED_FIELD)
     private TipoSexo sexo;
 
+    @NotNull(message = ErrorMessage.REQUIRED_FIELD)
     @Valid
     private EnderecoRequest endereco;
 

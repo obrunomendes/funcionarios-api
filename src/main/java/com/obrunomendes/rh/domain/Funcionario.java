@@ -17,24 +17,19 @@ import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
+@Setter
 @Entity
 @Table(name = "funcionario")
 public class Funcionario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Setter
     private String matricula;
     private String nome;
-
     private LocalDate dataNascimento;
-
     @Convert(converter = TipoSexoConverter.class)
     private TipoSexo sexo;
-
     @Embedded
     private Endereco endereco;
 }

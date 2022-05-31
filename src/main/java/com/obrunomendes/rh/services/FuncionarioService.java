@@ -1,6 +1,7 @@
 package com.obrunomendes.rh.services;
 
 import com.obrunomendes.rh.domain.Funcionario;
+import com.obrunomendes.rh.exceptions.FuncionarioNotFoundException;
 import com.obrunomendes.rh.models.mappers.FuncionarioMapper;
 import com.obrunomendes.rh.models.request.FuncionarioRequest;
 import com.obrunomendes.rh.models.request.FuncionarioUpdateRequest;
@@ -32,6 +33,7 @@ public class FuncionarioService {
             var endereco = enderecoService.buscaEnderecoPorCep(request.getEndereco().getCep());
             funcionario.setEndereco(endereco);
         }
+
         funcionario = funcionarioRepository.save(funcionario);
 
         return mapper.toFuncionarioResponse(funcionario);
@@ -67,14 +69,14 @@ public class FuncionarioService {
     }
 
     public void atualizacaoParcial(FuncionarioUpdateRequest request) {
-        var exists = funcionarioRepository.existsById(request.getId());
-        if (!exists) {
-            throw new RuntimeException("not found");
-        }
+        var funcionario = buscarFuncionarioPorId(request.getId());
 
-        var funcionario = mapper.toFuncionario(request);
+        //atualiza apenas os campos nao nulos
+        var func = mapper.toUpdateFuncionario(request, funcionario);
+        var endereco = enderecoService.buscaEnderecoPorCep(func.getEndereco().getCep());
+        func.setEndereco(endereco);
 
-        funcionario = funcionarioRepository.save(funcionario);
+        funcionarioRepository.save(funcionario);
     }
 
     public void removeFuncionarioPorId(Integer id) {
@@ -83,7 +85,6 @@ public class FuncionarioService {
 
     private Funcionario buscarFuncionarioPorId(Integer id) {
         return funcionarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(""));
+                .orElseThrow(() -> new FuncionarioNotFoundException("Funcionario nao encontrado"));
     }
-
 }

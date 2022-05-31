@@ -1,6 +1,9 @@
 package com.obrunomendes.rh.exceptions;
 
-public abstract class AppException extends RuntimeException{
+import lombok.Getter;
+
+@Getter
+public abstract class AppException extends RuntimeException {
 
     private final ErrorMessageBuilder error;
     private final Object[] args;
@@ -8,6 +11,12 @@ public abstract class AppException extends RuntimeException{
     public AppException(final Throwable cause) {
         super(cause);
         this.error = ErrorMessageBuilder.builder().message(cause.getMessage()).build();
+        this.args = null;
+    }
+
+    public AppException(final String error) {
+        super(error);
+        this.error = ErrorMessageBuilder.builder().message(error).build();
         this.args = null;
     }
 }

@@ -13,8 +13,10 @@ import javax.management.timer.Timer;
 @EnableScheduling
 public class CacheScheduler {
     private static final Logger LOGGER = LoggerFactory.getLogger(CacheScheduler.class);
+    private static final long CINCO_MINUTOS = Timer.ONE_MINUTE * 5;
+    private static final long DEZ_MINUTOS = Timer.ONE_MINUTE * 10;
 
-    @Scheduled(fixedRate = Timer.ONE_MINUTE * 5)
+    @Scheduled(initialDelay = CINCO_MINUTOS, fixedDelay = DEZ_MINUTOS)
     @CacheEvict(value = "viaCepCache")
     public void limpaCache() {
         LOGGER.info("limpando cache ....");

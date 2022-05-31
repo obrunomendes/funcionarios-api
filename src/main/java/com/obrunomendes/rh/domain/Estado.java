@@ -44,7 +44,7 @@ public enum Estado {
             throw new IllegalArgumentException("");
         }
         for (Estado x : Estado.values()) {
-            if (x.descricao.equals(str)) {
+            if (x.name().equals(str)) {
                 return x;
             }
         }
