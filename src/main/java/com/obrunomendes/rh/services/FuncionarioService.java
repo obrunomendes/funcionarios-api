@@ -1,7 +1,9 @@
 package com.obrunomendes.rh.services;
 
+import com.obrunomendes.rh.domain.Funcionario;
 import com.obrunomendes.rh.models.mappers.FuncionarioMapper;
 import com.obrunomendes.rh.models.request.FuncionarioRequest;
+import com.obrunomendes.rh.models.request.FuncionarioUpdateRequest;
 import com.obrunomendes.rh.models.response.FuncionarioResponse;
 import com.obrunomendes.rh.repositories.FuncionarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,21 +19,27 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FuncionarioService {
     private final FuncionarioRepository funcionarioRepository;
+    private final EnderecoService enderecoService;
     private final FuncionarioMapper mapper;
 
 
-    public FuncionarioResponse novoFuncionario(FuncionarioRequest request) {
+    public FuncionarioResponse criaOuAtualizaFuncionario(FuncionarioRequest request) {
         var funcionario = mapper.toFuncionario(request);
         funcionario.setMatricula(UUID.randomUUID().toString());
 
+        var deveBuscarPorCep = enderecoService.deveBuscarEnderecoPorCep(request.getEndereco());
+        if (deveBuscarPorCep) {
+            var endereco = enderecoService.buscaEnderecoPorCep(request.getEndereco().getCep());
+            funcionario.setEndereco(endereco);
+        }
         funcionario = funcionarioRepository.save(funcionario);
 
         return mapper.toFuncionarioResponse(funcionario);
     }
 
     public FuncionarioResponse buscaFuncionarioPorId(Integer id) {
-        var response = funcionarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(""));
+        var response = buscarFuncionarioPorId(id);
+
         return mapper.toFuncionarioResponse(response);
     }
 
@@ -49,4 +57,33 @@ public class FuncionarioService {
 
         return new PageImpl<>(pageResponse, pageable, response.getTotalPages());
     }
+
+    public FuncionarioResponse atualizarFuncionario(FuncionarioRequest request) {
+        var funcionario = mapper.toFuncionario(request);
+        funcionario = funcionarioRepository.save(funcionario);
+
+        var response = mapper.toFuncionarioResponse(funcionario);
+        return response;
+    }
+
+    public void atualizacaoParcial(FuncionarioUpdateRequest request) {
+        var exists = funcionarioRepository.existsById(request.getId());
+        if (!exists) {
+            throw new RuntimeException("not found");
+        }
+
+        var funcionario = mapper.toFuncionario(request);
+
+        funcionario = funcionarioRepository.save(funcionario);
+    }
+
+    public void removeFuncionarioPorId(Integer id) {
+        funcionarioRepository.deleteById(id);
+    }
+
+    private Funcionario buscarFuncionarioPorId(Integer id) {
+        return funcionarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(""));
+    }
+
 }

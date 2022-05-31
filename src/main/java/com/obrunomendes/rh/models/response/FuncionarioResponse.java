@@ -1,6 +1,7 @@
 package com.obrunomendes.rh.models.response;
 
-import com.obrunomendes.rh.domain.Estado;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.obrunomendes.rh.domain.Endereco;
 import com.obrunomendes.rh.domain.TipoSexo;
 import lombok.Data;
 
@@ -11,9 +12,10 @@ public class FuncionarioResponse {
 
     private String matricula;
     private String nome;
-    private LocalDate idade;
+    @JsonProperty(value = "data_nascimento")
+    private LocalDate dataNascimento;
     private TipoSexo sexo;
-    private Estado estado;
+    private Endereco endereco;
 
 
 }

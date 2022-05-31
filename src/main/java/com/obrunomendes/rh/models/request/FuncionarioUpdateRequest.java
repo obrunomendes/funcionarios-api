@@ -10,7 +10,10 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
-public class FuncionarioRequest {
+public class FuncionarioUpdateRequest {
+
+    @NotNull
+    private Integer id;
 
     @NotBlank
     private String nome;
