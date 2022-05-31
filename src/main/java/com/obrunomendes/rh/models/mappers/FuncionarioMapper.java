@@ -7,6 +7,8 @@ import com.obrunomendes.rh.models.response.FuncionarioResponse;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -32,5 +34,7 @@ public interface FuncionarioMapper {
 
     Funcionario toFuncionario(FuncionarioUpdateRequest funcionarioRequest);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Funcionario toUpdateFuncionario(FuncionarioUpdateRequest request, @MappingTarget Funcionario funcionario);
 }
 

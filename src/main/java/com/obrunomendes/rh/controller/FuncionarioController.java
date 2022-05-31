@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@RequestMapping(value = "/api/funcionarios",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
-@RequestMapping("/api/funcionarios")
 @RequiredArgsConstructor
 public class FuncionarioController {
 
@@ -37,15 +39,16 @@ public class FuncionarioController {
     }
 
     @GetMapping("/localizacao")
-    public ResponseEntity<Page<FuncionarioResponse>> listarFuncionarios(@RequestParam String cep) {
+    public ResponseEntity<Page<FuncionarioResponse>> listarFuncionarios(@RequestParam(value = "cep")
+                                                                        String cep) {
 
         var response = funcionarioService.buscaFuncionariosPorCep(cep);
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FuncionarioResponse> cadastrarNovoFuncionario(
-            @RequestBody @Valid FuncionarioRequest funcionario) {
+    @PostMapping
+    public ResponseEntity<FuncionarioResponse> cadastrarNovoFuncionario(@RequestBody
+                                                                        @Valid FuncionarioRequest funcionario) {
 
         FuncionarioResponse response = funcionarioService.criaOuAtualizaFuncionario(funcionario);
         return ResponseEntity.ok(response);
@@ -61,12 +64,13 @@ public class FuncionarioController {
 
     @PatchMapping("/atualizar-informacoes")
     @ResponseStatus(HttpStatus.OK)
-    public void atualizarFuncionarioParcialmente(@RequestBody @Valid FuncionarioUpdateRequest funcionario) {
+    public void atualizarFuncionarioParcialmente(@RequestBody
+                                                 @Valid FuncionarioUpdateRequest funcionario) {
 
         funcionarioService.atualizacaoParcial(funcionario);
     }
 
-    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/remover/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removerFuncionarioPorId(@PathVariable Integer id) {
 
