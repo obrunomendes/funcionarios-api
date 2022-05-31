@@ -5,6 +5,7 @@ import com.obrunomendes.rh.domain.Endereco;
 import com.obrunomendes.rh.models.mappers.EnderecoMapper;
 import com.obrunomendes.rh.models.request.EnderecoRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -21,6 +22,7 @@ public class EnderecoService {
                 .allMatch(Objects::isNull);
     }
 
+    @Cacheable(value = "viaCepCache", key = "#cep")
     public Endereco buscaEnderecoPorCep(String cep) {
         var formattedCep = cep.replaceAll("[^\\d ]", "");
         var response = viaCepClient.buscaCep(formattedCep);
