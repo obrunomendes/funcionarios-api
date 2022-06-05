@@ -30,11 +30,11 @@ public class EnderecoServiceTests {
 
     static ViaCepResponse viaCepResponse;
 
-    static Endereco enderecoResponse;
+    static Endereco enderecoModel;
 
     @BeforeAll
     static void setUp() {
-        enderecoResponse = new Endereco("45650880", Estado.SP, "Algum bairro", "Algum lugar");
+        enderecoModel = new Endereco("45650880", Estado.SP, "Algum bairro", "Algum lugar");
         viaCepResponse = ViaCepResponse.builder()
                 .cep("45650880").bairro("Algum bairro").uf("SP")
                 .logradouro("endereco x, rua YZ").localidade("Algum lugar")
@@ -46,7 +46,7 @@ public class EnderecoServiceTests {
     public void deveBuscarEnderecoPorCep_success() {
         Mockito.when(client.buscaCep(Mockito.anyString())).thenReturn(viaCepResponse);
         Mockito.when(mapper.viaCepToEndereco(Mockito.any()))
-                .thenReturn(enderecoResponse);
+                .thenReturn(enderecoModel);
 
         var endereco = Assertions.assertDoesNotThrow(() -> service.buscaEnderecoPorCep("45650880"));
 

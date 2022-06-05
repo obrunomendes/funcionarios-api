@@ -3,6 +3,7 @@ package com.obrunomendes.rh.models.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.obrunomendes.rh.domain.TipoSexo;
 import com.obrunomendes.rh.exceptions.messages.ErrorMessage;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.Valid;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
+@Builder
 public class FuncionarioRequest {
 
     @NotBlank
