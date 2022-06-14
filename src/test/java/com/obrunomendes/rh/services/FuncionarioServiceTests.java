@@ -4,6 +4,7 @@ import com.obrunomendes.rh.domain.Endereco;
 import com.obrunomendes.rh.domain.Estado;
 import com.obrunomendes.rh.domain.Funcionario;
 import com.obrunomendes.rh.domain.TipoSexo;
+import com.obrunomendes.rh.exceptions.EnderecoNotFoundException;
 import com.obrunomendes.rh.exceptions.FuncionarioNotFoundException;
 import com.obrunomendes.rh.models.mappers.FuncionarioMapper;
 import com.obrunomendes.rh.models.request.EnderecoRequest;
@@ -26,6 +27,7 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -62,7 +64,6 @@ public class FuncionarioServiceTests {
                 .bairro("Algum bairro").cidade("Algum lugar")
                 .build();
 
-
         funcionarioRequest = funcionarioRequest.builder()
                 .dataNascimento(LocalDate.parse("1990-12-13"))
                 .nome("Usuario Teste")
@@ -84,7 +85,9 @@ public class FuncionarioServiceTests {
 
     @Test
     void deveCadastrarFuncionarioApenasCepInformado_sucesso() {
-        when(enderecoService.deveBuscarEnderecoPorCep(any())).thenReturn(false);
+        when(enderecoService.deveBuscarEnderecoPorCep(any())).thenReturn(true);
+        when(enderecoService.buscaEnderecoPorCep(anyString())).thenReturn(enderecoModel);
+
         when(funcionarioRepository.save(any())).thenReturn(funcionarioModel);
         when(mapper.toFuncionario(any(FuncionarioRequest.class))).
                 thenReturn(funcionarioModel);
@@ -98,8 +101,7 @@ public class FuncionarioServiceTests {
 
     @Test
     void deveCadastrarFuncionario_sucesso() {
-        when(enderecoService.deveBuscarEnderecoPorCep(any())).thenReturn(true);
-        when(enderecoService.buscaEnderecoPorCep(anyString()));
+        when(enderecoService.deveBuscarEnderecoPorCep(any())).thenReturn(false);
         when(funcionarioRepository.save(any())).thenReturn(funcionarioModel);
         when(mapper.toFuncionario(any(FuncionarioRequest.class))).
                 thenReturn(funcionarioModel);
@@ -110,6 +112,19 @@ public class FuncionarioServiceTests {
         Assertions.assertNotNull(response);
         Assertions.assertEquals(response.getDataNascimento(), funcionarioResponse.getDataNascimento());
     }
+
+    @Test()
+    void deveCadastrarFuncionario_fail_NotFoundException() {
+        when(mapper.toFuncionario(any(FuncionarioRequest.class))).
+                thenReturn(funcionarioModel);
+
+        when(enderecoService.deveBuscarEnderecoPorCep(any())).thenReturn(true);
+        doThrow(EnderecoNotFoundException.class).when(enderecoService).buscaEnderecoPorCep(anyString());
+
+        Assertions.assertThrows(EnderecoNotFoundException.class,
+                () -> service.criaOuAtualizaFuncionario(funcionarioRequest));
+    }
+
 
     @Test
     void deveBuscarFuncionarioPorId_success() {
@@ -127,10 +142,6 @@ public class FuncionarioServiceTests {
         Mockito.doThrow(FuncionarioNotFoundException.class)
                 .when(funcionarioRepository).findById(anyInt());
 
-
         Assertions.assertThrows(FuncionarioNotFoundException.class, () -> service.buscaFuncionarioPorId(1));
-
     }
-
-
 }
