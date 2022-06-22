@@ -64,7 +64,7 @@ public class FuncionarioServiceTests {
                 .bairro("Algum bairro").cidade("Algum lugar")
                 .build();
 
-        funcionarioRequest = funcionarioRequest.builder()
+        funcionarioRequest = FuncionarioRequest.builder()
                 .dataNascimento(LocalDate.parse("1990-12-13"))
                 .nome("Usuario Teste")
                 .sexo(TipoSexo.FEMININO).endereco(enderecoRequest)
